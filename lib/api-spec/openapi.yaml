@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: dashboard
+    description: Family dashboard summaries and activity
+  - name: care
+    description: Daily care log and medication tracking
+  - name: operations
+    description: Care operations, caregivers, and expenses
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get the family dashboard summary
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+  /activity:
+    get:
+      operationId: getActivity
+      tags: [dashboard]
+      summary: Get recent care activity
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Activity"
+  /care-log:
+    get:
+      operationId: getCareLogs
+      tags: [care]
+      summary: List today's care log
+      responses:
+        "200":
+          description: Care log entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CareLog"
+    post:
+      operationId: createCareLog
+      tags: [care]
+      summary: Add a care log entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareLogInput"
+      responses:
+        "201":
+          description: Created care log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareLog"
+  /care-log/{id}:
+    patch:
+      operationId: updateCareLog
+      tags: [care]
+      summary: Update or verify a care log entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareLogUpdate"
+      responses:
+        "200":
+          description: Updated care log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareLog"
+        "404":
+          description: Care log not found
+  /medications:
+    get:
+      operationId: getMedications
+      tags: [care]
+      summary: List medication reminders
+      responses:
+        "200":
+          description: Medication reminders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Medication"
+  /medications/{id}/status:
+    patch:
+      operationId: updateMedicationStatus
+      tags: [care]
+      summary: Mark a medication reminder as taken or missed
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicationStatusInput"
+      responses:
+        "200":
+          description: Updated medication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+  /caregivers:
+    get:
+      operationId: getCaregivers
+      tags: [operations]
+      summary: List assigned caregivers
+      responses:
+        "200":
+          description: Caregivers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Caregiver"
+  /schedule:
+    get:
+      operationId: getSchedule
+      tags: [operations]
+      summary: Get today's care schedule
+      responses:
+        "200":
+          description: Schedule
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScheduleItem"
+  /expenses:
+    get:
+      operationId: getExpenses
+      tags: [operations]
+      summary: List recent expenses
+      responses:
+        "200":
+          description: Expenses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Expense"
+    post:
+      operationId: createExpense
+      tags: [operations]
+      summary: Add an expense receipt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseInput"
+      responses:
+        "201":
+          description: Created expense
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Expense"
+  /sos:
+    post:
+      operationId: createSosAlert
+      tags: [operations]
+      summary: Trigger an emergency alert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SosInput"
+      responses:
+        "201":
+          description: SOS alert created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SosAlert"
+  /profile/ai:
+    post:
+      operationId: generateProfileDraft
+      tags: [operations]
+      summary: Create a structured caregiver profile draft from natural language
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileDraftInput"
+      responses:
+        "200":
+          description: Structured profile draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfileDraft"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    DashboardSummary:
+      type: object
+      properties:
+        elder:
+          $ref: "#/components/schemas/Elder"
+        todayProgress:
+          type: integer
+        todayTotal:
+          type: integer
+        medicationProgress:
+          type: integer
+        medicationTotal:
+          type: integer
+        trustScore:
+          type: integer
+        activeAlerts:
+          type: integer
+        monthlySpend:
+          type: number
+        nextCheckIn:
+          type: string
+        nextCheckInTime:
+          type: string
+      required:
+        - elder
+        - todayProgress
+        - todayTotal
+        - medicationProgress
+        - medicationTotal
+        - trustScore
+        - activeAlerts
+        - monthlySpend
+        - nextCheckIn
+        - nextCheckInTime
+    Elder:
+      type: object
+      properties:
+        name: { type: string }
+        age: { type: integer }
+        relationship: { type: string }
+        location: { type: string }
+        avatarUrl: { type: string }
+        healthStatus: { type: string }
+      required: [name, age, relationship, location, avatarUrl, healthStatus]
+    Activity:
+      type: object
+      properties:
+        id: { type: integer }
+        type: { type: string }
+        title: { type: string }
+        detail: { type: string }
+        time: { type: string }
+        status: { type: string }
+        initials: { type: string }
+      required: [id, type, title, detail, time, status, initials]
+    CareLog:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        detail: { type: string }
+        time: { type: string }
+        category: { type: string }
+        status: { type: string }
+        caregiver: { type: string }
+        photoUrl: { type: ["string", "null"] }
+        verifiedBy: { type: ["string", "null"] }
+      required: [id, title, detail, time, category, status, caregiver, photoUrl, verifiedBy]
+    CareLogInput:
+      type: object
+      properties:
+        title: { type: string, minLength: 1 }
+        detail: { type: string, minLength: 1 }
+        category: { type: string }
+        time: { type: string }
+      required: [title, detail, category, time]
+    CareLogUpdate:
+      type: object
+      properties:
+        status: { type: string }
+        verifiedBy: { type: string }
+      required: [status]
+    Medication:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        dosage: { type: string }
+        time: { type: string }
+        instruction: { type: string }
+        status: { type: string }
+        stock: { type: integer }
+        stockLabel: { type: string }
+      required: [id, name, dosage, time, instruction, status, stock, stockLabel]
+    MedicationStatusInput:
+      type: object
+      properties:
+        status: { type: string }
+      required: [status]
+    Caregiver:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        role: { type: string }
+        initials: { type: string }
+        trustScore: { type: integer }
+        status: { type: string }
+        distance: { type: string }
+      required: [id, name, role, initials, trustScore, status, distance]
+    ScheduleItem:
+      type: object
+      properties:
+        id: { type: integer }
+        time: { type: string }
+        title: { type: string }
+        detail: { type: string }
+        status: { type: string }
+      required: [id, time, title, detail, status]
+    Expense:
+      type: object
+      properties:
+        id: { type: integer }
+        merchant: { type: string }
+        detail: { type: string }
+        amount: { type: number }
+        date: { type: string }
+        status: { type: string }
+        receiptUrl: { type: ["string", "null"] }
+      required: [id, merchant, detail, amount, date, status, receiptUrl]
+    ExpenseInput:
+      type: object
+      properties:
+        merchant: { type: string, minLength: 1 }
+        detail: { type: string, minLength: 1 }
+        amount: { type: number, minimum: 0 }
+        date: { type: string }
+      required: [merchant, detail, amount, date]
+    SosInput:
+      type: object
+      properties:
+        source: { type: string }
+        note: { type: string }
+      required: [source, note]
+    SosAlert:
+      type: object
+      properties:
+        id: { type: integer }
+        createdAt: { type: string }
+        status: { type: string }
+        notified: { type: array, items: { type: string } }
+      required: [id, createdAt, status, notified]
+    ProfileDraftInput:
+      type: object
+      properties:
+        transcript: { type: string, minLength: 1 }
+      required: [transcript]
+    ProfileDraft:
+      type: object
+      properties:
+        summary: { type: string }
+        experience: { type: string }
+        skills:
+          type: array
+          items: { type: string }
+        availability: { type: string }
+        location: { type: string }
+      required: [summary, experience, skills, availability, location]
+

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "CareLink — Chăm sóc người cao tuổi"
+description = "A responsive family care dashboard for monitoring elderly loved ones, caregiver check-ins, medication, route safety, expenses, and trust signals in one calm workspace."
+version = "1.0.0"
+id = "artifacts/carelink"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25302
+
+[services.development]
+run = "pnpm --filter @workspace/carelink run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/carelink", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/carelink/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25302"
+BASE_PATH = "/"
