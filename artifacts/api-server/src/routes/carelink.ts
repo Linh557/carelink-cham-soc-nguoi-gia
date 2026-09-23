@@ -39,12 +39,12 @@ type CarelinkPayload = {
 const initialPayload: CarelinkPayload = {
   summary: {
     elder: {
-      name: "Bà Nguyễn Thị Lan",
+      name: "Mrs. Nguyen Thi Lan",
       age: 76,
-      relationship: "Mẹ của bạn",
-      location: "Quận 3, TP. Hồ Chí Minh",
+      relationship: "Your mother",
+      location: "District 3, Ho Chi Minh City",
       avatarUrl: "https://i.pravatar.cc/160?img=47",
-      healthStatus: "Ổn định",
+      healthStatus: "Stable",
     },
     todayProgress: 4,
     todayTotal: 6,
@@ -53,15 +53,15 @@ const initialPayload: CarelinkPayload = {
     trustScore: 96,
     activeAlerts: 0,
     monthlySpend: 4850000,
-    nextCheckIn: "Bữa trưa & thuốc",
+    nextCheckIn: "Lunch & medication",
     nextCheckInTime: "11:30",
   },
   activity: [
     {
       id: 1,
       type: "care",
-      title: "Bữa sáng đã được xác nhận",
-      detail: "Ngọc Anh · 08:15 hôm nay",
+      title: "Breakfast confirmed",
+      detail: "Ngoc Anh · 08:15 today",
       time: "08:15",
       status: "verified",
       initials: "NA",
@@ -69,8 +69,8 @@ const initialPayload: CarelinkPayload = {
     {
       id: 2,
       type: "medication",
-      title: "Đã uống thuốc huyết áp",
-      detail: "Bà Lan xác nhận bằng giọng nói",
+      title: "Blood pressure medication taken",
+      detail: "Mrs. Lan confirmed by voice",
       time: "08:30",
       status: "verified",
       initials: "BL",
@@ -78,8 +78,8 @@ const initialPayload: CarelinkPayload = {
     {
       id: 3,
       type: "expense",
-      title: "Hóa đơn đi chợ đã tải lên",
-      detail: "126.000đ · Chợ Bàn Cờ",
+      title: "Grocery receipt uploaded",
+      detail: "126,000₫ · Ban Co Market",
       time: "09:05",
       status: "review",
       initials: "NA",
@@ -87,8 +87,8 @@ const initialPayload: CarelinkPayload = {
     {
       id: 4,
       type: "audit",
-      title: "Kiểm tra định kỳ hoàn tất",
-      detail: "Đội ngũ CareLink · Hôm qua",
+      title: "Routine check completed",
+      detail: "CareLink team · Yesterday",
       time: "16:40",
       status: "verified",
       initials: "CL",
@@ -97,45 +97,45 @@ const initialPayload: CarelinkPayload = {
   careLogs: [
     {
       id: 1,
-      title: "Đón & kiểm tra buổi sáng",
-      detail: "Đo huyết áp, vệ sinh cá nhân, mở cửa sổ phòng khách",
+      title: "Morning pickup & check-in",
+      detail: "Blood pressure check, personal hygiene, opened living room windows",
       time: "07:30",
-      category: "Sức khỏe",
+      category: "Health",
       status: "verified",
-      caregiver: "Ngọc Anh",
+      caregiver: "Ngoc Anh",
       photoUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80",
-      verifiedBy: "Bà Lan · giọng nói",
+      verifiedBy: "Mrs. Lan · voice confirmation",
     },
     {
       id: 2,
-      title: "Chuẩn bị bữa sáng",
-      detail: "Cháo yến mạch, chuối và một ly sữa ấm",
+      title: "Breakfast preparation",
+      detail: "Oatmeal porridge, banana, and a glass of warm milk",
       time: "08:15",
-      category: "Dinh dưỡng",
+      category: "Nutrition",
       status: "verified",
-      caregiver: "Ngọc Anh",
+      caregiver: "Ngoc Anh",
       photoUrl: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80",
-      verifiedBy: "Gia đình · 08:22",
+      verifiedBy: "Family · 08:22",
     },
     {
       id: 3,
-      title: "Nhắc thuốc buổi sáng",
-      detail: "Amlodipine 5mg · xác nhận sau khi uống",
+      title: "Morning medication reminder",
+      detail: "Amlodipine 5mg · confirmed after taking",
       time: "08:30",
-      category: "Thuốc",
+      category: "Medication",
       status: "verified",
-      caregiver: "Ngọc Anh",
+      caregiver: "Ngoc Anh",
       photoUrl: null,
-      verifiedBy: "Bà Lan · giọng nói",
+      verifiedBy: "Mrs. Lan · voice confirmation",
     },
     {
       id: 4,
-      title: "Tập vận động nhẹ",
-      detail: "Đi bộ 15 phút quanh công viên Tao Đàn",
+      title: "Light exercise",
+      detail: "15-minute walk around Tao Dan Park",
       time: "09:20",
-      category: "Vận động",
+      category: "Exercise",
       status: "pending",
-      caregiver: "Ngọc Anh",
+      caregiver: "Ngoc Anh",
       photoUrl: null,
       verifiedBy: null,
     },
@@ -144,65 +144,65 @@ const initialPayload: CarelinkPayload = {
     {
       id: 1,
       name: "Amlodipine",
-      dosage: "5mg · 1 viên",
+      dosage: "5mg · 1 tablet",
       time: "08:30",
-      instruction: "Sau bữa sáng",
+      instruction: "After breakfast",
       status: "taken",
       stock: 18,
-      stockLabel: "Còn 18 ngày",
+      stockLabel: "18 days left",
     },
     {
       id: 2,
       name: "Metformin",
-      dosage: "500mg · 1 viên",
+      dosage: "500mg · 1 tablet",
       time: "12:00",
-      instruction: "Sau bữa trưa",
+      instruction: "After lunch",
       status: "upcoming",
       stock: 12,
-      stockLabel: "Còn 12 ngày",
+      stockLabel: "12 days left",
     },
     {
       id: 3,
       name: "Vitamin D3",
-      dosage: "1000 IU · 1 viên",
+      dosage: "1000 IU · 1 tablet",
       time: "19:30",
-      instruction: "Sau bữa tối",
+      instruction: "After dinner",
       status: "upcoming",
       stock: 4,
-      stockLabel: "Sắp hết thuốc",
+      stockLabel: "Running low",
     },
   ],
   caregivers: [
     {
       id: 1,
-      name: "Trần Ngọc Anh",
-      role: "Bảo mẫu chính",
+      name: "Tran Ngoc Anh",
+      role: "Primary caregiver",
       initials: "NA",
       trustScore: 96,
-      status: "Đang làm việc",
-      distance: "0,8 km",
+      status: "On duty",
+      distance: "0.8 km",
     },
     {
       id: 2,
-      name: "Lê Minh Thư",
-      role: "Bảo mẫu dự phòng",
+      name: "Le Minh Thu",
+      role: "Backup caregiver",
       initials: "MT",
       trustScore: 91,
-      status: "Sẵn sàng",
-      distance: "2,4 km",
+      status: "Available",
+      distance: "2.4 km",
     },
   ],
   schedule: [
-    { id: 1, time: "07:30", title: "Đón & kiểm tra buổi sáng", detail: "Đo huyết áp · vệ sinh cá nhân", status: "done" },
-    { id: 2, time: "08:30", title: "Uống thuốc sáng", detail: "Amlodipine 5mg", status: "done" },
-    { id: 3, time: "09:20", title: "Đi bộ công viên", detail: "Theo dõi lộ trình trực tiếp", status: "active" },
-    { id: 4, time: "12:00", title: "Bữa trưa & thuốc", detail: "Nhắc Metformin 500mg", status: "upcoming" },
-    { id: 5, time: "15:30", title: "Gọi video gia đình", detail: "15 phút kết nối", status: "upcoming" },
+    { id: 1, time: "07:30", title: "Morning pickup & check-in", detail: "Blood pressure check · personal hygiene", status: "done" },
+    { id: 2, time: "08:30", title: "Morning medication", detail: "Amlodipine 5mg", status: "done" },
+    { id: 3, time: "09:20", title: "Park walk", detail: "Live route tracking", status: "active" },
+    { id: 4, time: "12:00", title: "Lunch & medication", detail: "Metformin 500mg reminder", status: "upcoming" },
+    { id: 5, time: "15:30", title: "Family video call", detail: "15-minute connection", status: "upcoming" },
   ],
   expenses: [
-    { id: 1, merchant: "Nhà thuốc An Khang", detail: "Vitamin D3 · 2 hộp", amount: 184000, date: "Hôm nay, 09:12", status: "approved", receiptUrl: null },
-    { id: 2, merchant: "Chợ Bàn Cờ", detail: "Thực phẩm tuần này", amount: 126000, date: "Hôm nay, 09:05", status: "review", receiptUrl: null },
-    { id: 3, merchant: "Phí taxi đi khám", detail: "Bệnh viện Từ Dũ", amount: 92000, date: "12/09/2026", status: "approved", receiptUrl: null },
+    { id: 1, merchant: "An Khang Pharmacy", detail: "Vitamin D3 · 2 boxes", amount: 184000, date: "Today, 09:12", status: "approved", receiptUrl: null },
+    { id: 2, merchant: "Ban Co Market", detail: "This week's groceries", amount: 126000, date: "Today, 09:05", status: "review", receiptUrl: null },
+    { id: 3, merchant: "Taxi fare to appointment", detail: "Tu Du Hospital", amount: 92000, date: "12/09/2026", status: "approved", receiptUrl: null },
   ],
   nextId: 10,
 };
@@ -263,7 +263,7 @@ router.post("/care-log", async (req, res): Promise<void> => {
     id: payload.nextId++,
     ...parsed.data,
     status: "pending",
-    caregiver: "Bạn",
+    caregiver: "You",
     photoUrl: null,
     verifiedBy: null,
   };
@@ -276,13 +276,13 @@ router.patch("/care-log/:id", async (req, res): Promise<void> => {
   const params = UpdateCareLogParams.safeParse(req.params);
   const body = UpdateCareLogBody.safeParse(req.body);
   if (!params.success || !body.success) {
-    res.status(400).json({ error: "Thông tin xác nhận không hợp lệ" });
+    res.status(400).json({ error: "Invalid confirmation details" });
     return;
   }
   const payload = await readPayload();
   const entry = payload.careLogs.find((item) => item.id === params.data.id);
   if (!entry) {
-    res.status(404).json({ error: "Không tìm thấy care-log" });
+    res.status(404).json({ error: "Care log not found" });
     return;
   }
   Object.assign(entry, body.data);
@@ -299,13 +299,13 @@ router.patch("/medications/:id/status", async (req, res): Promise<void> => {
   const params = UpdateMedicationStatusParams.safeParse(req.params);
   const body = UpdateMedicationStatusBody.safeParse(req.body);
   if (!params.success || !body.success) {
-    res.status(400).json({ error: "Trạng thái thuốc không hợp lệ" });
+    res.status(400).json({ error: "Invalid medication status" });
     return;
   }
   const payload = await readPayload();
   const medication = payload.medications.find((item) => item.id === params.data.id);
   if (!medication) {
-    res.status(404).json({ error: "Không tìm thấy thuốc" });
+    res.status(404).json({ error: "Medication not found" });
     return;
   }
   medication.status = body.data.status;
@@ -364,8 +364,8 @@ router.post("/sos", async (req, res): Promise<void> => {
   const alert = {
     id: payload.nextId++,
     createdAt: new Date().toISOString(),
-    status: "Đã báo đội ngũ",
-    notified: ["Gia đình", "Đội ngũ CareLink"],
+    status: "Team notified",
+    notified: ["Family", "CareLink team"],
   };
   req.log.warn({ source: parsed.data.source }, "SOS alert triggered");
   res.status(201).json(CreateSosAlertResponse.parse(alert));
@@ -378,15 +378,15 @@ router.post("/profile/ai", async (req, res): Promise<void> => {
     return;
   }
   const transcript = parsed.data.transcript.toLowerCase();
-  const skills = ["Chăm sóc người cao tuổi"];
-  if (transcript.includes("nấu") || transcript.includes("bếp")) skills.push("Nấu ăn gia đình");
-  if (transcript.includes("thuốc") || transcript.includes("y tế")) skills.push("Theo dõi thuốc");
+  const skills = ["Elder care"];
+  if (transcript.includes("cook") || transcript.includes("kitchen") || transcript.includes("meal")) skills.push("Family cooking");
+  if (transcript.includes("medication") || transcript.includes("medical") || transcript.includes("health")) skills.push("Medication tracking");
   const draft = {
     summary: parsed.data.transcript.trim(),
-    experience: transcript.match(/\d+\s*(năm|nam)/)?.[0] ?? "Kinh nghiệm chăm sóc thực tế",
+    experience: transcript.match(/\d+\s*years?/)?.[0] ?? "Hands-on caregiving experience",
     skills,
-    availability: transcript.includes("sáng") ? "Buổi sáng" : "Toàn thời gian",
-    location: transcript.includes("quận") ? "Đã nhận diện khu vực từ câu trả lời" : "Chưa cập nhật",
+    availability: transcript.includes("morning") ? "Mornings" : "Full-time",
+    location: transcript.includes("district") || transcript.includes("area") || transcript.includes("neighborhood") ? "Location identified from your description" : "Not yet specified",
   };
   res.json(GenerateProfileDraftResponse.parse(draft));
 });
