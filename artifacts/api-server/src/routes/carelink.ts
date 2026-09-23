@@ -236,6 +236,11 @@ async function writePayload(payload: CarelinkPayload): Promise<void> {
 
 const router: IRouter = Router();
 
+router.post("/dashboard/reset-demo", async (_req, res): Promise<void> => {
+  await writePayload(initialPayload);
+  res.json({ status: "reset" });
+});
+
 router.get("/dashboard/summary", async (_req, res): Promise<void> => {
   const payload = await readPayload();
   res.json(GetDashboardSummaryResponse.parse(payload.summary));
